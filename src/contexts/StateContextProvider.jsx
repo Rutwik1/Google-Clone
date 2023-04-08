@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 const StateContext = createContext();
-const baseUrl = 'https://api.scrape-it.cloud/scrape/google';
+const baseUrl = 'http://api.serpstack.com/search';
 
 export const StateContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
@@ -12,20 +12,19 @@ export const StateContextProvider = ({ children }) => {
     setLoading(true);
   
     try {
-      const res = await fetch(`${baseUrl}${url}`, {
-        method: 'post',
+      const res = await fetch(`${baseUrl}/${url}`, {
+        method: 'GET',
         headers: {
-          'x-api-key': process.env.REACT_APP_API_KEY,
-          // 'Content-Type': 'application'
-        },
+          'access_key': process.env.REACT_APP_API_KEY,
+          'query' : 'mcdonalds',  
+              },
       });
   
-      if (!res.ok) {
+      if (res.status !== 200) {
         throw new Error(`Unexpected response status: ${res.status}`);
       }
   
-      const data = await res.text();
-      
+      const data = await res.json();
   
       if (url.includes('/news')) {
         setResults(data.entries);
