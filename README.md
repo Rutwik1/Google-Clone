@@ -1,5 +1,5 @@
 # Google-Clone
-```html
+
 <p style="background-color: #3b82f6; font-size: 1.5rem; font-weight: 700; color: #fff; padding-top: 0.25rem; padding-bottom: 0.25rem; padding-left: 0.5rem; padding-right: 0.5rem; border-radius: 0.25rem;">Google 🔎</p>
 
 - This project is a simple search engine that uses the Google Web Search API to fetch search results and display them to the user. 
