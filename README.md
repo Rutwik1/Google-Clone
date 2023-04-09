@@ -1,5 +1,5 @@
 # Google-Clone
-  <p className="text-2xl bg-blue-500 font-bold text-white py-1 px-2 rounded dark:bg-gray-50 dark:text-gray-900">
+  <p text-2xl bg-blue-500 font-bold text-white py-1 px-2 rounded dark:bg-gray-50 dark:text-gray-900">
           Google 🔎
   </p>
 - This project is a simple search engine that uses the Google Web Search API to fetch search results and display them to the user. 
