@@ -1,34 +1,36 @@
+// import axios from 'axios';
 import React, { createContext, useContext, useState } from 'react';
 
 const StateContext = createContext();
-const baseUrl = 'http://api.serpstack.com/search';
+const baseUrl = 'https://google-web-search1.p.rapidapi.com/';
 
 export const StateContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const getResults = async (url) => {
-    setLoading(true);
+  const getResults = async (type) => {
+    setIsLoading(true);
   
     try {
-      const res = await fetch(`${baseUrl}/${url}`, {
+      const response = await fetch(`${baseUrl}${type}`, {
         method: 'GET',
         headers: {
-          'access_key': process.env.REACT_APP_API_KEY,
-          'query' : 'mcdonalds',  
+          // 'X-User-Agent': 'desktop',
+          'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
+          'X-RapidAPI-Host': 'google-web-search1.p.rapidapi.com'
               },
       });
   
-      if (res.status !== 200) {
-        throw new Error(`Unexpected response status: ${res.status}`);
-      }
+      // if (response.status !== 200) {
+      //   throw new Error(`Unexpected response status: ${res.status}`);
+      // }
   
-      const data = await res.json();
+      const data = await response.json();
   
-      if (url.includes('/news')) {
+      if (type.includes('/news')) {
         setResults(data.entries);
-      } else if (url.includes('/images')) {
+      } else if (type.includes('/images')) {
         setResults(data.images_results);
       } else {
         setResults(data.organic_results);
@@ -36,13 +38,13 @@ export const StateContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
-  
-    setLoading(false);
+    
+    setIsLoading(false);
   };
   
   
   return (
-    <StateContext.Provider value={{ getResults, results, searchTerm, setSearchTerm, loading }}>
+    <StateContext.Provider value={{ getResults, results, searchTerm, setSearchTerm, isLoading }}>
       {children}
     </StateContext.Provider>
   );

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 
 import { useStateContext } from '../contexts/StateContextProvider';
-import { Loading } from './Loading.jsx';
+import { Loading } from './Loading';
 
 export const Results = () => {
   const { results, loading, getResults, searchTerm } = useStateContext();
@@ -14,7 +14,7 @@ export const Results = () => {
       if (location.pathname === '/videos') {
         getResults(`/search/q=${searchTerm} videos`);
       } else {
-        getResults(`${location.pathname}/q=${searchTerm}&num=40`);
+        getResults(`${location.pathname}/q=${searchTerm}`);
       }
     }
   }, [searchTerm, location.pathname]);
@@ -74,5 +74,7 @@ export const Results = () => {
       );
     default:
       return 'Error...';
+  
+          
   }
 };
